@@ -13,6 +13,7 @@ Begin by sourcing the shared lib:
 ```bash
 source ~/Dev/Amiga-programming/.claude/skills/adf-sync-lib/adf-lib.sh
 adf_require_xdftool || exit 1
+adf_require_mounted || exit 1   # USB at /Volumes/GOTEK/... — fail fast up front
 DISK="SAS-C Disk 1"; MIRROR="$REPO/$DISK/Programs"
 ```
 

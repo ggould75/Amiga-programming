@@ -12,23 +12,29 @@ Always begin by sourcing the shared lib (provides config, registry, safe helpers
 
 ```bash
 source ~/Dev/Amiga-programming/.claude/skills/adf-sync-lib/adf-lib.sh
-adf_require_xdftool || exit 1
+adf_require_xdftool  || exit 1   # tool present?
+adf_require_mounted  || exit 1   # USB at /Volumes/GOTEK/...  — FAIL FAST here, before any work
 DISK="SAS-C Disk 1"; MIRROR="$REPO/$DISK/Programs"
 ```
 
+Both preconditions are checked **up front**. If the USB isn't mounted at the expected path, the
+skill stops immediately with a clear message — it never starts the write workflow half-way.
+
 ## Steps
 
-1. **Determine the file list.**
-   - If the user named specific file(s) (e.g. `layers.c`), use those (basenames under `Programs/`).
-   - If not, compute "what differs": for each `*.c` in `$MIRROR`, read the on-disk copy and diff;
-     the changed/new ones are the candidates. Show the user the list and the per-file diffs, and
-     **ask for confirmation** before writing.
-
-2. **Pull the live disk to a working copy** (also snapshots `backup/before/`):
+1. **Pull the live disk to a working copy** (also snapshots `backup/before/`) and unpack it so the
+   diff uses the actual current disk state:
    ```bash
    WORK="$(adf_pull "$DISK")" || exit 1
-   adf_info "$WORK"   # note free space
+   adf_info "$WORK"               # note free space
+   adf_unpack "$WORK" /tmp/g2a-before
    ```
+
+2. **Determine the file list.**
+   - If the user named specific file(s) (e.g. `layers.c`), use those (basenames under `Programs/`).
+   - If not, compute "what differs": for each `*.c` in `$MIRROR`, diff against
+     `/tmp/g2a-before/Programs/<f>`; the changed/new ones are the candidates. Show the user the
+     list and per-file diffs, and **ask for confirmation** before writing.
 
 3. **For each file to write**, free stale artifacts then write+verify:
    ```bash
@@ -41,9 +47,8 @@ DISK="SAS-C Disk 1"; MIRROR="$REPO/$DISK/Programs"
 
 4. **Verify the whole change** before deploying:
    ```bash
-   adf_unpack "$XFER/backup/before/SAS-C Disk 1.adf" /tmp/adf-before
-   adf_unpack "$WORK" /tmp/adf-after
-   diff -r /tmp/adf-before/Programs /tmp/adf-after/Programs   # expect ONLY intended .c changes + removed artifacts
+   adf_unpack "$WORK" /tmp/g2a-after
+   diff -r /tmp/g2a-before/Programs /tmp/g2a-after/Programs   # expect ONLY intended .c changes + removed artifacts
    ```
    Show this diff. If anything outside the intended files changed, STOP.
 
