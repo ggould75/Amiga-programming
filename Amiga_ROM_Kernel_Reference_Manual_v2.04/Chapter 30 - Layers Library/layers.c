@@ -5,14 +5,10 @@
 */
 
 #include <exec/types.h>
+#include <exec/memory.h>
 #include <graphics/gfxbase.h>
 #include <graphics/layers.h>
 #include <graphics/displayinfo.h>
-
-#include <clib/exec_protos.h>
-#include <clib/dos_protos.h>
-#include <clib/graphics_protos.h>
-#include <clib/layers_protos.h>
 
 #include <proto/exec.h>
 #include <proto/dos.h>
@@ -28,8 +24,6 @@ int CXBRK(void) { return(0); } // Disable Lattice CTRL/C Handling
 int chkabort(void) { return(0); } // Really
 #endif
 
-#define INTUI_V36_NAMES_ONLY
-
 #define L_DELAY (100)
 #define S_DELAY  (50)
 
@@ -43,19 +37,21 @@ int chkabort(void) { return(0); } // Really
 #define SCREEN_W (320)
 #define SCREEN_H (200)
 
-#define W_H (50)
-#define W_T (5)
-#define W_B ((W_T+W_H)-1)
-#define W_W (80)
-#define W_L ((SCREEN_W/2) - (W_W/2))
-#define W_R ((W_L+W_W)-1)
+// Define the starting geometry of the three example layers
+// (the coloured Super/Smart/Simple layers the demo pushes around)
+#define W_H (50)                     // height
+#define W_T (5)                      // top
+#define W_B ((W_T+W_H)-1)            // bottom
+#define W_W (80)                     // width
+#define W_L ((SCREEN_W/2) - (W_W/2)) // left
+#define W_R ((W_L+W_W)-1)            // right
 
 // Size of the super bitmap
 #define SUPER_H SCREEN_H
 #define SUPER_W SCREEN_W
 
-/* starting size of the message layer */
-#define M_H (10)
+// Define the geometry of the message strip layer at the bottom
+#define M_H (10)                     // height, etc...
 #define M_T (SCREEN_H-M_H)
 #define M_B ((M_T+M_H)-1)
 #define M_W (SCREEN_W)
@@ -67,6 +63,8 @@ int chkabort(void) { return(0); } // Really
 struct GfxBase *GfxBase;
 struct Library *LayersBase;
 */
+
+long __OSlibversion = 37;     /* require OS 2.04 / V37 */
 
 /* global constant data for initializing the layers */
 LONG theLayerFlags[3] = { LAYERSUPER, LAYERSMART, LAYERSIMPLE };
@@ -325,7 +323,7 @@ struct BitMap *allocBitMap(LONG depth, LONG width, LONG height)
         BOOL bit_map_failed = FALSE;
         struct BitMap *bitmap = NULL;
         
-        if (NULL != (bitmap = AllocMem(sizeof(*bitmap), NULL)))
+        if (NULL != (bitmap = AllocMem(sizeof(*bitmap), MEMF_CLEAR)))
         {
                 InitBitMap(bitmap, depth, width, height);
                 
@@ -460,12 +458,12 @@ VOID runNewView(VOID)
 */
 VOID main(int argc, char **argv)
 {
-        // No manual OpenLibrary/CloseLibrary here: the <proto/*.h headers
+        // No manual OpenLibrary/CloseLibrary here: the <proto/*.h> headers
         // declare each library base and emit inline library calls, and the
         // SAS/C startup auto-opens/closes any base that is DECLARED but not
         // DEFINED (graphics, layers; exec+dos always). So don't define the
         // bases, or auto-open stops and the base stays NULL -> crash.
-        // __OSLibversion=37 makes it require OS 2.04 (V37).
+        // __OSlibversion=37 makes it require OS 2.04 (V37).
         // Ref: SAS/C User's Guide ch. 10 "Initializing System Library Bases"
         
         runNewView();
