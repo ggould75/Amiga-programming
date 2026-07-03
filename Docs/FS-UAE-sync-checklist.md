@@ -4,6 +4,14 @@ A step-by-step routine for moving work between the real Amiga (Gotek USB),
 FS-UAE (Workbench 3.1 + SAS/C on the `.hdf`), and GitHub — without losing or
 corrupting anything.
 
+## Key folders
+
+- **FS-UAE hard disk (`.hdf`)** — has Workbench 3.1 + SAS/C 6.0 installed:
+  `~/Documents/FS-UAE/Hard Drives/Example.hdf`
+- **FS-UAE floppy folder** — copy `.adf` files here to work on them from FS-UAE
+  (usually just `SAS-C Disk 1.adf` and/or `C-Programs.adf`):
+  `~/Downloads/Amiga/Amiga/Shared disks (Amiga : FS-UAE)/SAS:C v6.0/`
+
 ## Golden rule
 
 **The `.adf` is the master. Only one copy is "live" at a time.** Before you edit
