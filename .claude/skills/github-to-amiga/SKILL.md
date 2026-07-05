@@ -62,8 +62,20 @@ skill stops immediately with a clear message — it never starts the write workf
    (missing headers/constants only surface on the SAS/C compiler). Do NOT commit anything here —
    the source already lives in the repo; committing is a separate user decision.
 
+7. **Source-of-truth reminder — ALWAYS output this last, verbatim and prominent**, as the very
+   final thing in your response (after the summary), so the user records which copy is now
+   authoritative and the copies don't silently diverge:
+   ```
+   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+   ┃ ⚠️  WRITE DOWN THE MOST UPDATED SOURCE OF TRUTH NOW.       ┃
+   ┃ WHICH COPY HOLDS THE LATEST WORK?                         ┃
+   ┃ AMIGA/GOTEK USB · MAC .ADF · FS-UAE .HDF · GITHUB          ┃
+   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+   ```
+
 ## Hard rules
 - Scope is `Programs/` only. Never read, write, or diff anything else on this disk.
 - Never run `xdftool write/delete` against the live USB file — only against `$WORK`.
 - Never deploy an image that failed read-back verification.
 - Deploy only via temp+rename (handled by `adf_deploy`).
+- Always end with the uppercase source-of-truth reminder (step 7) — never skip it.

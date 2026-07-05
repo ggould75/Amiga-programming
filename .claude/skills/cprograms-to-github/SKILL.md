@@ -59,8 +59,20 @@ DISK="C_Programs"; MIRROR="$REPO/C_Programs"
 5. **STOP. Summarize and let the user review + commit.** Do not run git; suggest `/commit`.
    Note in the summary whether the README was updated. Optionally eject: `adf_eject || true`.
 
+6. **Source-of-truth reminder — ALWAYS output this last, verbatim and prominent**, as the very
+   final thing in your response (after the summary), so the user records which copy is now
+   authoritative and the copies don't silently diverge:
+   ```
+   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+   ┃ ⚠️  WRITE DOWN THE MOST UPDATED SOURCE OF TRUTH NOW.       ┃
+   ┃ WHICH COPY HOLDS THE LATEST WORK?                         ┃
+   ┃ AMIGA/GOTEK USB · MAC .ADF · FS-UAE .HDF · GITHUB          ┃
+   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+   ```
+
 ## Hard rules
 - Read-only on the disk; never write the .adf.
 - Never commit/push automatically — always stop for user review.
 - Only ignore build artifacts (`.o`, `.lnk`, executables, `.info`); sync `.c` only.
 - The `README.md` "Programs" section covers `C_Programs/` only; keep it current (step 4).
+- Always end with the uppercase source-of-truth reminder (step 6) — never skip it.

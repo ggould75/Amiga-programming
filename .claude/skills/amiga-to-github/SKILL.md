@@ -45,7 +45,19 @@ DISK="SAS-C Disk 1"; MIRROR="$REPO/$DISK/Programs"
    adf_eject || true
    ```
 
+5. **Source-of-truth reminder — ALWAYS output this last, verbatim and prominent**, as the very
+   final thing in your response (after the summary), so the user records which copy is now
+   authoritative and the copies don't silently diverge:
+   ```
+   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+   ┃ ⚠️  WRITE DOWN THE MOST UPDATED SOURCE OF TRUTH NOW.       ┃
+   ┃ WHICH COPY HOLDS THE LATEST WORK?                         ┃
+   ┃ AMIGA/GOTEK USB · MAC .ADF · FS-UAE .HDF · GITHUB          ┃
+   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+   ```
+
 ## Hard rules
 - Scope is `Programs/` only.
 - Never write the .adf or the USB; this direction is read-only on the disk.
 - Never commit/push automatically — always stop for user review.
+- Always end with the uppercase source-of-truth reminder (step 5) — never skip it.
