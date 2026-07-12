@@ -1,8 +1,7 @@
 # Amiga-programming
 
 Personal collection of Amiga C programs, written with **SAS/C 6.0** and targeting
-**Kickstart 2.05 (V37)**, built and run on a real Amiga (and in FS-UAE). Only the
-`.c` sources are mirrored here — programs are compiled on the Amiga.
+**Kickstart 2.05 (V37)**, built and run on a real Amiga (when I'm home), and in FS-UAE when I'm not.
 
 ## Programs
 
