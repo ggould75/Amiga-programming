@@ -56,3 +56,10 @@ progression, each program building on the previous one.
   `NewRegion`/`OrRectRegion`/`ClearRegion`, install only around your own drawing,
   remove before the window closes).
   *Libraries: intuition, graphics, layers (rev 37).*
+
+### `Boing/`
+
+- **`boing5.c`** — Jimmy Maher's reconstruction of the famous Amiga Boing demo
+  (<http://amiga.filfre.net>). I only fixed compiler warnings and minor issues to
+  build under 2.05 / SAS/C 6.0. See `Boing/README.md`.
+  *Libraries: intuition, graphics, dos, audio.device (rev 37).*
