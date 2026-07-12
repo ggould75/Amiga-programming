@@ -3,6 +3,11 @@
 Personal collection of Amiga C programs, written with **SAS/C 6.0** and targeting
 **Kickstart 2.05 (V37)**, built and run on a real Amiga (when I'm home), and in FS-UAE when I'm not.
 
+## Docs
+
+Learnings I write down while (and after) working on these programs, so I can
+refer back to them later.
+
 ## Programs
 
 Reference catalogue of what each program under `C_Programs/` does, so a specific
