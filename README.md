@@ -61,6 +61,14 @@ progression, each program building on the previous one.
   remove before the window closes).
   *Libraries: intuition, graphics, layers (rev 37).*
 
+- **`active_screen_draw.c`** — Draws a 40×30 filled rectangle at a random spot
+  straight onto the default public screen's own `RastPort` (`Layer == NULL`), so
+  the fill bypasses the layers library and lands over any windows. Locks the
+  screen with `LockPubScreen()`, seeds `rand()` from `DateStamp()`, then
+  `SetAPen`/`RectFill`/`WaitBlit`. Comments explain why the unowned pixels mangle
+  when the Shell scrolls after `printf()` — the cure is to own the surface.
+  *Libraries: intuition, graphics (rev 37).*
+
 ### `Boing/`
 
 - **`boing5.c`** — Jimmy Maher's reconstruction of the famous Amiga Boing demo
