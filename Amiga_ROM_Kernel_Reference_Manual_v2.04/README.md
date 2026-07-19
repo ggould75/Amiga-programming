@@ -23,6 +23,17 @@ easy to find later.
   `MenuItem` fields and the font-height dependence of `MENHEIGHT`.
   *Libraries: intuition, graphics (rev 37).*
 
+- **`menu_layout.c`** — The manual's font-sensitive menu example: instead of
+  hard-coding item positions, it computes them at runtime so the strip looks right
+  in any (even proportional) font. Three menus (Project / Edit / Settings) with
+  sub-items, `COMMSEQ` key-equivalents, and `CHECKIT`/`MENUTOGGLE`/mutual-exclude
+  items. `adjustMenus()`/`adjustItems()`/`MaxLength()` open the screen font and
+  size every `MenuItem` from `TextLength()` (adding `COMMWIDTH` for the Amiga-key
+  glyph). Opens its window with the V37 `OpenWindowTags()` on the locked public
+  screen, and handles both `IDCMP_MENUPICK` (walking the `NextSelect` chain) and
+  `IDCMP_MENUHELP`. The manual notes GadTools does this layout for you under V37.
+  *Libraries: intuition, graphics (rev 37).*
+
 ### `Chapter 30 - Layers Library/`
 
 - **`layers.c`** — The manual's tour of the layers library, driven on a
